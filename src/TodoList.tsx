@@ -13,7 +13,7 @@ interface item {
 
 const TodoList = (props : Props) => {
     return (
-      <ul>
+      <ul id='list'>
         {props.items.map(item => (
           item.isStriked?
           <li onClick={() => props.changeItemState(item.text)} key={item.id}><del>{item.text}</del></li>

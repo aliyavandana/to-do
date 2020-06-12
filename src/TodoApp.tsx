@@ -28,9 +28,6 @@ function App() {
     };
     setText('');
     setItems(items.concat(newItem))
-    // useEffect(() => {
-    //   window.localStorage.setItem('items', JSON.stringify(items));
-    // })
   }
 
   const changeItemState = (e: String) => {
@@ -45,11 +42,11 @@ function App() {
     <div>
       <h3>TODO List</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="new-todo">
-          What needs to be done?
+        <label htmlFor="new-todo">What needs to be done?
         </label>
         <input
           id="new-todo"
+          data-testid = "new-todo"
           onChange={handleChange}
           value={text}
         />
