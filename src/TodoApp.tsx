@@ -45,13 +45,14 @@ function App() {
         <label htmlFor="new-todo">What needs to be done?
         </label>
         <input
+        placeholder= "add todo"
           id="new-todo"
           data-testid = "new-todo"
           onChange={handleChange}
           value={text}
         />
         <button>
-          Add #{items.length + 1}
+          Add
         </button>
       </form>
       <TodoList items={items} changeItemState={changeItemState}/>

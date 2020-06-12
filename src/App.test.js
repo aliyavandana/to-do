@@ -9,18 +9,28 @@ test('renders text TODO List', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-test('rendering the new todo', async () => {
-  const { getByLabelText, getByTestId, getByText, queryByTestId, baseElement } = render(
-    <App />
-  )
-  const newToDo = 'Add new todo'
+test('Update Todos', () => {
+  const { getByPlaceholderText, getByText, getByDisplayValue } = render(<App />);
 
-  const input = getByLabelText(/What needs to be done?/i);
+  /* Find input element with given placeholder */
+  const inputElement = getByPlaceholderText(/add todo/i);
 
-  fireEvent.change(input, newToDo)
+  /* Enter text in input */
+  fireEvent.change(inputElement, {
+    target: { value: "Eat breakfast" }
+  });
 
-  const button = getByText(/Add/g)
-  fireEvent.click(button)
+  /* Click on Add button */
+  fireEvent.click(getByText(/Add/i))
+  
+  /* Once added check text todos remaining to 1 */
+  expect(getByText(/Total todos/i).textContent).toEqual('Total Todos remaining: 1 out of 1');
 
-  expect(getByText(/Add new todo/i)).toBeInTheDocument();
-})
+  /* Click on list item to complete an item */
+  fireEvent.click(getByText(/Eat breakfast/i))
+
+  /* Once completed now check text todos remaining to 0 */
+  expect(getByText(/Total todos/i).textContent).toEqual('Total Todos remaining: 0 out of 1');
+});
+
+
