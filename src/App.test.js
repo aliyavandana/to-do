@@ -33,4 +33,26 @@ test('Update Todos', () => {
   expect(getByText(/Total todos/i).textContent).toEqual('Total Todos remaining: 0 out of 1');
 });
 
+test('local storage test', () => {
+  const { getByPlaceholderText, getByText, getByDisplayValue } = render(<App />);
+
+  /* Find input element with given placeholder */
+  const inputElement = getByPlaceholderText(/add todo/i);
+
+  /* Enter text in input */
+  fireEvent.change(inputElement, {
+    target: { value: "Drink water" }
+  });
+
+  /* Click on Add button */
+  fireEvent.click(getByText(/Add/i))
+  window.location.reload();
+  
+  /* Once added check text todos remaining to 1 */
+  // expect(getByText(/Total todos/i).textContent).toEqual('Total Todos remaining: 1 out of 1');
+  expect(getByText(/Drink water/i)).toBeInTheDocument();
+
+
+});
+
 
