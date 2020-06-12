@@ -1,7 +1,15 @@
 import React from 'react';
 import './App.css';
 
-const TodoList = (props) => {
+interface Props {
+    items: item[];
+}
+interface item {
+  id : number;
+  text: string
+}
+
+const TodoList = (props : Props) => {
     return (
       <ul>
         {props.items.map(item => (
