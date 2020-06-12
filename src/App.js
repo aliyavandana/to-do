@@ -1,24 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
+import TodoList from './TodoList'
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App(props) {
+  const [items, setItems] = useState([]);
+  const [text, setText] = useState('');
+
+  const handleChange = (e) => {
+    setText(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text.length === 0) {
+      return;
+    }
+    const newItem = {
+      text: text,
+      id: Date.now()
+    };
+    setText('');
+    setItems(items.concat(newItem))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h3>TODO</h3>
+      <TodoList items={items} />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="new-todo">
+          What needs to be done?
+        </label>
+        <input
+          id="new-todo"
+          onChange={handleChange}
+          value={text}
+        />
+        <button>
+          Add #{items.length + 1}
+        </button>
+      </form>
     </div>
   );
 }
